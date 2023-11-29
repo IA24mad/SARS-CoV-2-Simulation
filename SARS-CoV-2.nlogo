@@ -1,13 +1,19 @@
-turtles-own [
-  infected? ; a boolean variable that shows if a turtle is infected or not
-  incubation-period ; the time between the moment on infection and the beginning of symptoms
-  infection-time ; when the turtle has been infected (time)
-  touched?
-]
+breed [humans human]
 
 globals [
   %sick
   %healthy
+]
+
+humans-own [
+  category-age-0_29
+  category-age-30_49
+  category-age-50_74
+  category-age-75+
+  infected? ; a boolean variable that shows if a turtle is infected or not
+  incubation-period ; the time between the moment on infection and the beginning of symptoms
+  infection-time ; when the turtle has been infected (time)
+  touched?
 ]
 
 to setup
@@ -18,7 +24,7 @@ to setup
 end
 
 to go
- ask turtles [
+ ask humans [
     move
     spreadInfection
     show-symptoms
@@ -35,9 +41,9 @@ to move
 end
 
 to spreadInfection
- ask turtles in-radius 1 with [ color = red ] [
-    if any? turtles in-radius 1 with [ color = yellow ] [
-      ask one-of turtles in-radius 1 with [ color = yellow ] [
+ ask humans in-radius 1 with [ color = red ] [
+    if any? humans in-radius 1 with [ color = yellow ] [
+      ask one-of humans in-radius 1 with [ color = yellow ] [
         set infection-time ticks
         set touched? true
       ]
@@ -46,7 +52,7 @@ to spreadInfection
 end
 
 to setupTurtles
- create-turtles round(Totalpop - (Infected / 100) * Totalpop)[
+ create-humans round(Totalpop - (Infected / 100) * Totalpop)[
     setxy random-xcor random-ycor
     set size 1.1
     set color yellow
@@ -56,7 +62,7 @@ to setupTurtles
     set infection-time 0
     set touched? false
  ]
- create-turtles (Infected / 100) * Totalpop[
+ create-humans (Infected / 100) * Totalpop[
     setxy random-xcor random-ycor
     set size 1.1
     set color red
@@ -66,9 +72,9 @@ to setupTurtles
 end
 
 to update-global-variables
-  if count turtles > 0
-    [ set %sick (count turtles with [ infected? ] / count turtles) * 100
-      set %healthy (count turtles with [ not infected? ] / count turtles) * 100
+  if count humans > 0
+    [ set %sick (count humans with [ infected? ] / count humans) * 100
+      set %healthy (count humans with [ not infected? ] / count humans) * 100
       ]
 end
 
@@ -82,13 +88,13 @@ to show-symptoms
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
-422
-3
-998
-580
+384
+10
+854
+481
 -1
 -1
-18.323
+14.90323
 1
 10
 1
@@ -117,7 +123,7 @@ Totalpop
 Totalpop
 2
 800
-10.0
+17.0
 1
 1
 NIL
@@ -166,7 +172,7 @@ Infected
 Infected
 1
 100
-10.0
+42.0
 1
 1
 %
@@ -251,24 +257,24 @@ Healthy
 11
 
 PLOT
-1020
-12
-1499
-250
+865
+39
+1239
+396
 Population
 Days
-People
+People Nbr
 0.0
 100.0
 0.0
-10.0
+50.0
 true
 true
 "" ""
 PENS
-"Total" 1.0 0 -13791810 true "" "plot count turtles"
-"Infected" 1.0 0 -2674135 true "" "plot count turtles with [ infected? ]"
-"healthy" 1.0 0 -1184463 true "" "plot count turtles with [ not infected? ]"
+"Total" 1.0 0 -13791810 true "" "plot count humans"
+"Infected" 1.0 0 -2674135 true "" "plot count humans with [ infected? ]"
+"healthy" 1.0 0 -1184463 true "" "plot count humans with [ not infected? ]"
 
 TEXTBOX
 121
