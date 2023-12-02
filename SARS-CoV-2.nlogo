@@ -53,7 +53,8 @@ to spreadInfection
 end
 
 to setupTurtles
- create-humans round(Totalpop - (Infected / 100) * Totalpop)[
+ let health-population round (Totalpop - (Infected / 100) * Totalpop) ; set health pop in variable
+ create-humans health-population[
     setxy random-xcor random-ycor
     set size 1.1
     set color yellow
@@ -62,8 +63,11 @@ to setupTurtles
     set incubation-period random 13 + 2
     set infection-time 0
     set touched? false
+
+
  ]
- create-humans (Infected / 100) * Totalpop[
+ let Infected-population round((Infected / 100) * Totalpop) ; set infected pop in variable
+ create-humans Infected-population[
     setxy random-xcor random-ycor
     set size 1.1
     set color red
@@ -87,6 +91,13 @@ to show-symptoms
     set shape "face sad"
   ]
 end
+
+
+
+
+
+
+
 @#$#@#$#@
 GRAPHICS-WINDOW
 384
@@ -124,7 +135,7 @@ Totalpop
 Totalpop
 2
 800
-242.0
+7.0
 1
 1
 NIL
@@ -173,7 +184,7 @@ Infected
 Infected
 1
 100
-42.0
+64.0
 1
 1
 %
@@ -302,7 +313,7 @@ TEXTBOX
 252
 161
 270
-Categoty Age Config
+Category Age Config
 14
 65.0
 1
