@@ -3,13 +3,14 @@ breed [humans human] ; test2 commit
 globals [
   %sick
   %healthy
+  %recovered ; a boolean variable that shows if a turtle is recovered or not
 ]
 
 humans-own [
-  category-age-0_29
-  category-age-30_49
-  category-age-50_74
-  category-age-75+
+  category-age-0_29_v
+  category-age-30_49_v
+  category-age-50_74_v
+  category-age-75+_v
   infected? ; a boolean variable that shows if a turtle is infected or not
   incubation-period ; the time between the moment on infection and the beginning of symptoms
   infection-time ; when the turtle has been infected (time)
@@ -115,25 +116,25 @@ ticks
 30.0
 
 SLIDER
-21
-115
-362
-148
+12
+63
+184
+96
 Totalpop
 Totalpop
 2
 800
-17.0
+242.0
 1
 1
 NIL
 HORIZONTAL
 
 BUTTON
-23
-54
-104
-96
+196
+55
+277
+97
 setup
 setup
 NIL
@@ -147,10 +148,10 @@ NIL
 1
 
 BUTTON
-112
-54
-196
-96
+283
+55
+367
+97
 go
 go
 T
@@ -164,10 +165,10 @@ NIL
 1
 
 SLIDER
-21
-164
-362
-197
+10
+106
+185
+139
 Infected
 Infected
 1
@@ -179,10 +180,10 @@ Infected
 HORIZONTAL
 
 SLIDER
-21
-213
-361
-246
+9
+169
+186
+202
 WearingMask
 WearingMask
 0
@@ -194,10 +195,10 @@ WearingMask
 HORIZONTAL
 
 SLIDER
-21
-263
-360
-296
+9
+211
+186
+244
 Vaccinated
 Vaccinated
 0
@@ -209,10 +210,10 @@ Vaccinated
 HORIZONTAL
 
 SLIDER
-21
-312
-361
-345
+197
+106
+368
+139
 InfectionProb
 InfectionProb
 0
@@ -224,10 +225,10 @@ InfectionProb
 HORIZONTAL
 
 MONITOR
-27
-409
-130
-454
+10
+441
+113
+486
 Total Population
 Totalpop
 17
@@ -235,10 +236,10 @@ Totalpop
 11
 
 MONITOR
-144
-408
-219
-453
+127
+442
+202
+487
 N`Infected
 %sick
 1
@@ -246,10 +247,10 @@ N`Infected
 11
 
 MONITOR
-244
-408
-301
-453
+215
+442
+272
+487
 Healthy
 %healthy
 1
@@ -257,10 +258,10 @@ Healthy
 11
 
 PLOT
-865
-39
-1239
-396
+862
+36
+1236
+393
 Population
 Days
 People Nbr
@@ -277,13 +278,103 @@ PENS
 "healthy" 1.0 0 -1184463 true "" "plot count humans with [ not infected? ]"
 
 TEXTBOX
-121
+24
 10
-337
+240
 60
 Simulation Covid19
 22
-0.0
+125.0
+1
+
+TEXTBOX
+9
+144
+159
+162
+Recovered Config
+14
+67.0
+1
+
+TEXTBOX
+11
+252
+161
+270
+Categoty Age Config
+14
+65.0
+1
+
+SLIDER
+10
+282
+184
+315
+category-age-0_29
+category-age-0_29
+0
+100
+29.0
+1
+1
+%
+HORIZONTAL
+
+SLIDER
+10
+320
+185
+353
+category-age-30_49
+category-age-30_49
+0
+100
+27.0
+1
+1
+%
+HORIZONTAL
+
+SLIDER
+10
+358
+184
+391
+category-age-50_74
+category-age-50_74
+0
+100
+46.0
+1
+1
+%
+HORIZONTAL
+
+SLIDER
+11
+397
+183
+430
+category-age-75+
+category-age-75+
+0
+100
+37.0
+1
+1
+%
+HORIZONTAL
+
+TEXTBOX
+982
+10
+1132
+29
+Chart Population
+15
+65.0
 1
 
 @#$#@#$#@
