@@ -278,6 +278,7 @@ to human-satuts
         set move? false
         face human-home
         move-to human-home
+
       ]
     ]
   ]
