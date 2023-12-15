@@ -266,6 +266,7 @@ to human-satuts
         set move? false
         face human-home
         move-to human-home
+        show "i need hospital"
       ]
     ]
   ]
@@ -278,6 +279,7 @@ to human-satuts
         set move? false
         face human-home
         move-to human-home
+
       ]
     ]
   ]
@@ -366,6 +368,7 @@ to go-to-hospital
       if human-need-hospital != nobody [ ; if there is some one who needs hospital
         set empty-beds empty-beds - 1
         ask human-need-hospital [
+          show "am going to the hospital"
           set color white
           set shape "face happy"
           wait 0.4
