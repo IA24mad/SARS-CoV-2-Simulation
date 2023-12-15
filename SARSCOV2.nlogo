@@ -19,6 +19,7 @@ globals [
   %H_64
   %H_65
   %Vacc
+  %TotalDeaths
 ]
 
 hospitals-own [
@@ -84,6 +85,7 @@ to setupHumans
     set in-hospital? false
     set dead? false
     set is-vaccinated? false
+    set dead? false
 
     set incubation-period random 13 + 2
     set befor-quarantine random 6 + 2
@@ -180,6 +182,7 @@ to go
     recover
     go-to-hospital
     reInfection
+    died
   ]
  update-global-variables
  wait 0.4
@@ -362,7 +365,7 @@ to recover
     ]
   ]
 
-  ask humans with [(color = yellow or color = orange) and need-hospital? = false and category-age-30_49? = true][
+  ask humans with [(color = yellow or color = orange or color = blue) and need-hospital? = false and category-age-30_49? = true][
     if ticks - symptoms-time > 15 [
       if random 100 < 94 [
         set color gray
@@ -376,7 +379,7 @@ to recover
     ]
   ]
 
-  ask humans with [(color = yellow or color = orange) and need-hospital? = false and category-age-50_64? = true][
+  ask humans with [(color = yellow or color = orange or color = blue) and need-hospital? = false and category-age-50_64? = true][
     if ticks - symptoms-time > 7 [
       if random 100 < 60 [
         set color gray
@@ -390,7 +393,7 @@ to recover
     ]
   ]
 
-  ask humans with [(color = yellow or color = orange) and need-hospital? = false and category-age-65+? = true][
+  ask humans with [(color = yellow or color = orange or color = blue) and need-hospital? = false and category-age-65+? = true][
     if ticks - symptoms-time > 7 [
       if random 100 < 47 [
         set color gray
@@ -457,7 +460,6 @@ to reInfection
             set touched? true
             set carry? true
             set color yellow
-            show "ReInfected"
           ]
         ]
       ]
@@ -470,7 +472,6 @@ to reInfection
               set touched? true
               set carry? true
               set color yellow
-              show "ReInfected"
             ]
           ]
         ]
@@ -491,7 +492,6 @@ to reInfection
               set touched? true
               set carry? true
               set color yellow
-              show "ReInfected"
             ]
           ]
         ]
@@ -504,7 +504,6 @@ to reInfection
                 set touched? true
                 set carry? true
                 set color yellow
-                show "ReInfected"
               ]
             ]
           ]
@@ -512,6 +511,106 @@ to reInfection
       ]
     ]
   ]
+end
+
+to died
+  ;; The people who need Intensive care and can't go to the hospital
+  ask humans with [need-hospital? = true and in-hospital? = false and dead? = false][
+    set color pink
+    set shape "x"
+    set dead? true
+    set move? false
+    show "hola"
+  ]
+
+  ;; The people who didn't recover
+  ask humans with [(color = orange or color = blue) and need-hospital? = false and category-age-65+? = true and dead? = false][
+    if ticks - symptoms-time > 15 [
+      if random 100 > 53 [
+        set color pink
+        set shape "x"
+        set dead? true
+        set move? false
+        show "0 to 29"
+      ]
+    ]
+  ]
+
+  ask humans with [(color = orange or color = blue) and need-hospital? = false and category-age-50_64? = true and dead? = false][
+    if ticks - symptoms-time > 15 [
+      if random 100 > 60 [
+        set color pink
+        set shape "x"
+        set dead? true
+        set move? false
+        show "50 to 64"
+      ]
+    ]
+  ]
+
+  ask humans with [(color = orange or color = blue) and need-hospital? = false and category-age-30_49? = true and dead? = false][
+    if ticks - symptoms-time > 15 [
+      if random 100 >= 94  [
+        set color pink
+        set shape "x"
+        set dead? true
+        set move? false
+        show "50 to 64"
+      ]
+    ]
+  ]
+
+  ask humans with [(color = orange or color = blue) and need-hospital? = false and category-age-0_29? = true and dead? = false][
+    if ticks - symptoms-time > 15 [
+      if random 100 >= 99  [
+        set color pink
+        set shape "x"
+        set dead? true
+        set move? false
+        show "50 to 64"
+      ]
+    ]
+  ]
+
+  ;; People in the hospital
+  ask humans with [in-hospital? = true and dead? = false and (category-age-50_64? = true or category-age-65+? = true)][
+    ifelse random 100 < 90 [
+      set color pink
+      set shape "x"
+      set dead? true
+      set move? false
+    ]
+    [
+      set color gray
+      set recovered? true
+      ;set infected? false
+      set carry? false
+      set symptoms? false
+      set shape "face happy"
+      set move? true
+      set %Hospital-Empty-beds %Hospital-Empty-beds + 1
+    ]
+  ]
+
+  ask humans with [in-hospital? = true and dead? = false and (category-age-0_29? = true or category-age-30_49? = true)][
+    ifelse random 100 < 50 [
+      set color pink
+      set shape "x"
+      set dead? true
+      set move? false
+    ]
+    [
+      set color gray
+      set recovered? true
+      ;set infected? false
+      set carry? false
+      set symptoms? false
+      set shape "face happy"
+      set move? true
+      set %Hospital-Empty-beds %Hospital-Empty-beds + 1
+    ]
+  ]
+
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
@@ -594,7 +693,7 @@ Totalpop
 Totalpop
 0
 400
-27.0
+90.0
 1
 1
 NIL
@@ -609,7 +708,7 @@ Infected
 Infected
 0
 Totalpop
-24.0
+50.0
 1
 1
 NIL
@@ -639,7 +738,7 @@ age-0-29
 age-0-29
 0
 Totalpop - age-30-49 - age-50-64 - age-65+
-21.0
+10.0
 1
 1
 NIL
@@ -654,7 +753,7 @@ age-30-49
 age-30-49
 0
 Totalpop - age-0-29 - age-50-64 - age-65+
-2.0
+26.0
 1
 1
 NIL
@@ -669,7 +768,7 @@ age-50-64
 age-50-64
 0
 Totalpop - age-0-29 - age-30-49 - age-65+
-2.0
+24.0
 1
 1
 NIL
@@ -684,7 +783,7 @@ age-65+
 age-65+
 0
 Totalpop - age-30-49 - age-50-64 - age-0-29
-2.0
+30.0
 1
 1
 NIL
@@ -890,7 +989,7 @@ Vaccinated-pop
 Vaccinated-pop
 0
 Totalpop - Infected
-3.0
+0.0
 1
 1
 NIL
@@ -952,8 +1051,8 @@ MONITOR
 373
 562
 Deaths
-%sick
-17
+count humans with [dead? = true]
+2
 1
 11
 
@@ -997,6 +1096,7 @@ false
 PENS
 "Need IC" 1.0 0 -8053223 true "" "plot count humans with [need-hospital? = true]"
 "Recovered" 1.0 0 -7500403 true "" "plot count humans with [color = gray]"
+"Died" 1.0 0 -2674135 true "" "plot count humans with [dead? = true]"
 
 MONITOR
 70
