@@ -530,7 +530,11 @@ Totalpop
 Totalpop
 0
 400
+<<<<<<< HEAD
 18.0
+=======
+85.0
+>>>>>>> 7f12c25ee48780dd3e1accec8ee55d7c4ccd6211
 1
 1
 NIL
@@ -545,7 +549,11 @@ Infected
 Infected
 0
 Totalpop
+<<<<<<< HEAD
 17.0
+=======
+58.0
+>>>>>>> 7f12c25ee48780dd3e1accec8ee55d7c4ccd6211
 1
 1
 NIL
@@ -575,7 +583,11 @@ age-0-29
 age-0-29
 0
 Totalpop - age-30-49 - age-50-64 - age-65+
+<<<<<<< HEAD
 12.0
+=======
+43.0
+>>>>>>> 7f12c25ee48780dd3e1accec8ee55d7c4ccd6211
 1
 1
 NIL
