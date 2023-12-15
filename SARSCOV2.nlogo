@@ -30,7 +30,7 @@ humans-own [
   category-age-50_64?
   category-age-65+?
   carry? ; a boolean variable that determins if the turtle is carrying the virus
-  infected? ; a boolean variable that shows if a turtle is infected or not
+  ;infected? ; a boolean variable that shows if a turtle is infected or not
   incubation-period ; the time between the moment on infection and the beginning of symptoms
   infection-time ; when the turtle has been infected (time)
   touched?
@@ -44,6 +44,7 @@ humans-own [
   dead?
   in-hospital?
   befor-quarantine ;the human wait from 2 to 5 days befor he do the quarantine
+  is-vaccinated?
 ]
 
 
@@ -54,6 +55,7 @@ to setup
   setupHumans
   update-global-variables
   create-hospital
+  setup-vaccinated
   reset-ticks
 end
 
@@ -69,7 +71,7 @@ to setupHumans
     set color green
     set shape "face happy"
 
-    set infected? false
+    ;set infected? false
     set touched? false
     set carry? false
     set wareMask? false
@@ -79,6 +81,7 @@ to setupHumans
     set move? true
     set in-hospital? false
     set dead? false
+    set is-vaccinated? false
 
     set incubation-period random 13 + 2
     set befor-quarantine random 6 + 2
@@ -154,8 +157,13 @@ to create-hospital
   ]
 end
 
-
-
+to setup-vaccinated
+  ask n-of Vaccinated-pop humans with [color = green][
+    set is-vaccinated? true
+    set shape "person doctor"
+    set color green
+  ]
+end
 
 ;;; >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> The go method <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 to go
@@ -191,8 +199,8 @@ to spreadInfection
     ; Calculate the probability of getting infected
     if random 100 <= Infection-Proba [
       ; Spread infection between sick human and a healthy human without mask (he is gonna get sick for the first time)
-      if any? humans in-radius 1 with [color = green and wareMask? = false] [
-        ask one-of humans in-radius 1 with [color = green] [
+      if any? humans in-radius 1 with [color = green and wareMask? = false and is-vaccinated? = false] [
+        ask one-of humans in-radius 1 with [color = green and wareMask? = false and is-vaccinated? = false] [
           set infection-time ticks
           set touched? true
           set carry? true
@@ -200,9 +208,9 @@ to spreadInfection
         ]
       ]
       ; Spread infection between sick human and a healthy human with mask
-      if any? humans in-radius 1 with [color = green and wareMask? = true] [
+      if any? humans in-radius 1 with [color = green and wareMask? = true and is-vaccinated? = false] [
         if random-float 100 > 95 [
-          ask one-of humans in-radius 1 with [color = green] [
+          ask one-of humans in-radius 1 with [color = green and wareMask? = true and is-vaccinated? = false] [
             set infection-time ticks
             set touched? true
             set carry? true
@@ -210,6 +218,32 @@ to spreadInfection
           ]
         ]
       ]
+
+      ;; If the human is vaccinated (1.5% probability of infection)
+      if any? humans in-radius 1 with [color = green and wareMask? = false and is-vaccinated? = true] [
+        if random-float 100 <= 1.5 [
+          ask one-of humans in-radius 1 with [color = green and wareMask? = false and is-vaccinated? = false] [
+            set infection-time ticks
+            set touched? true
+            set carry? true
+            set color yellow
+          ]
+        ]
+      ]
+      ; Spread infection between sick human and a healthy human with mask
+      if any? humans in-radius 1 with [color = green and wareMask? = true and is-vaccinated? = true] [
+        if random-float 100 > 95 [
+         if random-float 100 <= 1.5 [
+            ask one-of humans in-radius 1 with [color = green and wareMask? = true and is-vaccinated? = false] [
+              set infection-time ticks
+              set touched? true
+              set carry? true
+              set color yellow
+            ]
+          ]
+        ]
+      ]
+
     ]
   ]
 
@@ -219,8 +253,8 @@ to spreadInfection
       ; Calculate the probability of getting infected
       if random 100 <= Infection-Proba [
         ; Spread infection between sick human and a healthy human without mask
-        if any? humans in-radius 1 with [color = green and wareMask? = false][
-          ask one-of humans in-radius 1 with [color = green] [
+        if any? humans in-radius 1 with [color = green and wareMask? = false and is-vaccinated? = false][
+          ask one-of humans in-radius 1 with [color = green and wareMask? = false and is-vaccinated? = false] [
             set infection-time ticks
             set touched? true
             set carry? true
@@ -228,13 +262,38 @@ to spreadInfection
           ]
         ]
         ; Spread infection between sick human and a healthy human with mask
-        if any? humans in-radius 1 with [color = green and wareMask? = true] [
+        if any? humans in-radius 1 with [color = green and wareMask? = true and is-vaccinated? = false] [
           if random-float 100 > 95 [
-            ask one-of humans in-radius 1 with [color = green] [
+            ask one-of humans in-radius 1 with [color = green and wareMask? = true and is-vaccinated? = false] [
               set infection-time ticks
               set touched? true
               set carry? true
               set color yellow
+            ]
+          ]
+        ]
+
+        ;; If the human is vaccinated (1.5%)
+        if any? humans in-radius 1 with [color = green and wareMask? = false and is-vaccinated? = true][
+          if random-float 100 <= 1.5 [
+            ask one-of humans in-radius 1 with [color = green and wareMask? = false and is-vaccinated? = true] [
+              set infection-time ticks
+              set touched? true
+              set carry? true
+              set color yellow
+            ]
+          ]
+        ]
+        ; Spread infection between sick human and a healthy human with mask
+        if any? humans in-radius 1 with [color = green and wareMask? = true and is-vaccinated? = true] [
+          if random-float 100 > 95 [
+            if random-float 100 <= 1.5 [
+              ask one-of humans in-radius 1 with [color = green and wareMask? = true and is-vaccinated? = true] [
+                set infection-time ticks
+                set touched? true
+                set carry? true
+                set color yellow
+              ]
             ]
           ]
         ]
@@ -478,20 +537,20 @@ ticks
 30.0
 
 TEXTBOX
-543
+523
 10
-848
-56
+911
+35
 SARS-Cov2 Outbreak simulation
-19
+23
 15.0
 1
 
 BUTTON
-128
-49
-191
-82
+20
+48
+83
+81
 setup
 setup
 NIL
@@ -505,10 +564,10 @@ NIL
 1
 
 BUTTON
-197
-49
-260
-82
+89
+48
+152
+81
 go
 go
 T
@@ -522,10 +581,10 @@ NIL
 1
 
 SLIDER
-19
-101
-383
-134
+18
+84
+382
+117
 Totalpop
 Totalpop
 0
@@ -537,10 +596,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-19
-140
-383
-173
+18
+123
+382
+156
 Infected
 Infected
 0
@@ -552,10 +611,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-19
-179
-382
-212
+18
+162
+381
+195
 Infection-Proba
 Infection-Proba
 0
@@ -567,10 +626,10 @@ Infection-Proba
 HORIZONTAL
 
 SLIDER
-19
-298
-380
-331
+18
+308
+379
+341
 age-0-29
 age-0-29
 0
@@ -582,10 +641,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-19
-337
-379
-370
+18
+347
+378
+380
 age-30-49
 age-30-49
 0
@@ -597,10 +656,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-19
-377
-379
-410
+18
+387
+378
+420
 age-50-64
 age-50-64
 0
@@ -612,10 +671,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-19
-416
-379
-449
+18
+426
+378
+459
 age-65+
 age-65+
 0
@@ -672,9 +731,9 @@ MONITOR
 
 SLIDER
 21
-518
+520
 380
-551
+553
 hospital-beds
 hospital-beds
 0
@@ -686,10 +745,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-19
-219
-382
-252
+18
+202
+381
+235
 WareMask
 WareMask
 0
@@ -745,9 +804,9 @@ Age Category
 
 CHOOSER
 21
-557
+559
 159
-602
+604
 quarantine
 quarantine
 "Quarantine" "No Quarantine"
@@ -808,13 +867,66 @@ MONITOR
 11
 
 TEXTBOX
-20
-277
-170
-297
-Age Controll
-16
+18
+282
+168
+304
+Age Controllers
+18
 123.0
+1
+
+SLIDER
+18
+240
+380
+273
+Vaccinated-pop
+Vaccinated-pop
+0
+Totalpop - Infected
+3.0
+1
+1
+NIL
+HORIZONTAL
+
+PLOT
+975
+332
+1503
+601
+plot 1
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+false
+"" ""
+PENS
+"default" 1.0 0 -16777216 true "" "plot count turtles"
+
+TEXTBOX
+18
+21
+395
+47
+-------------- Controll Panel --------------
+22
+0.0
+1
+
+TEXTBOX
+971
+22
+1505
+51
+--------------------------- Monitors ---------------------------
+22
+0.0
 1
 
 @#$#@#$#@
@@ -1048,6 +1160,25 @@ Polygon -7500403 true true 105 90 120 195 90 285 105 300 135 300 150 225 165 300
 Rectangle -7500403 true true 127 79 172 94
 Polygon -7500403 true true 195 90 240 150 225 180 165 105
 Polygon -7500403 true true 105 90 60 150 75 180 135 105
+
+person doctor
+false
+0
+Polygon -7500403 true true 105 90 120 195 90 285 105 300 135 300 150 225 165 300 195 300 210 285 180 195 195 90
+Polygon -13345367 true false 135 90 150 105 135 135 150 150 165 135 150 105 165 90
+Polygon -7500403 true true 105 90 60 195 90 210 135 105
+Polygon -7500403 true true 195 90 240 195 210 210 165 105
+Circle -7500403 true true 110 5 80
+Rectangle -7500403 true true 127 79 172 94
+Polygon -1 true false 105 90 60 195 90 210 114 156 120 195 90 270 210 270 180 195 186 155 210 210 240 195 195 90 165 90 150 150 135 90
+Line -16777216 false 150 148 150 270
+Line -16777216 false 196 90 151 149
+Line -16777216 false 104 90 149 149
+Circle -1 true false 180 0 30
+Line -16777216 false 180 15 120 15
+Line -16777216 false 150 195 165 195
+Line -16777216 false 150 240 165 240
+Line -16777216 false 150 150 165 150
 
 plant
 false
