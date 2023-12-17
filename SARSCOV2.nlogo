@@ -358,6 +358,7 @@ to recover
     if ticks - symptoms-time > 15 [
       if random 100 < 99 [
         set color gray
+        set size 0.8
         set recovered? true
         ;set infected? false
         set carry? false
@@ -372,6 +373,7 @@ to recover
     if ticks - symptoms-time > 15 [
       if random 100 < 94 [
         set color gray
+        set size 0.8
         set recovered? true
         ;set infected? false
         set carry? false
@@ -386,6 +388,7 @@ to recover
     if ticks - symptoms-time > 7 [
       if random 100 < 60 [
         set color gray
+        set size 0.8
         set recovered? true
         ;set infected? false
         set carry? false
@@ -400,6 +403,7 @@ to recover
     if ticks - symptoms-time > 7 [
       if random 100 < 47 [
         set color gray
+        set size 0.8
         set recovered? true
         ;set infected? false
         set carry? false
@@ -519,7 +523,7 @@ end
 to died
   ;; The people who need Intensive care and can't go to the hospital
   ask humans with [need-hospital? = true and in-hospital? = false and dead? = false][
-    set color pink
+    set color red
     set shape "x"
     set dead? true
     set move? false
@@ -530,7 +534,7 @@ to died
   ask humans with [(color = orange or color = blue) and need-hospital? = false and category-age-65+? = true and dead? = false][
     if ticks - symptoms-time > 15 [
       if random 100 > 53 [
-        set color pink
+        set color red
         set shape "x"
         set dead? true
         set move? false
@@ -542,7 +546,7 @@ to died
   ask humans with [(color = orange or color = blue) and need-hospital? = false and category-age-50_64? = true and dead? = false][
     if ticks - symptoms-time > 15 [
       if random 100 > 60 [
-        set color pink
+        set color red
         set shape "x"
         set dead? true
         set move? false
@@ -554,7 +558,7 @@ to died
   ask humans with [(color = orange or color = blue) and need-hospital? = false and category-age-30_49? = true and dead? = false][
     if ticks - symptoms-time > 15 [
       if random 100 >= 94  [
-        set color pink
+        set color red
         set shape "x"
         set dead? true
         set move? false
@@ -566,7 +570,7 @@ to died
   ask humans with [(color = orange or color = blue) and need-hospital? = false and category-age-0_29? = true and dead? = false][
     if ticks - symptoms-time > 15 [
       if random 100 >= 99  [
-        set color pink
+        set color red
         set shape "x"
         set dead? true
         set move? false
@@ -578,7 +582,7 @@ to died
   ;; People in the hospital
   ask humans with [in-hospital? = true and dead? = false and (category-age-50_64? = true or category-age-65+? = true)][
     ifelse random 100 < 90 [
-      set color pink
+      set color red
       set shape "x"
       set dead? true
       set move? false
@@ -597,13 +601,14 @@ to died
 
   ask humans with [in-hospital? = true and dead? = false and (category-age-0_29? = true or category-age-30_49? = true)][
     ifelse random 100 < 50 [
-      set color pink
+      set color red
       set shape "x"
       set dead? true
       set move? false
     ]
     [
       set color gray
+      set size 0.8
       set recovered? true
       ;set infected? false
       set carry? false
@@ -1077,8 +1082,8 @@ PLOT
 1735
 303
 hospitalisation
-NIL
-NIL
+Days
+N° Human
 0.0
 10.0
 0.0
