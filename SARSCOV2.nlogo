@@ -624,11 +624,11 @@ end
 GRAPHICS-WINDOW
 415
 56
-1017
-659
+1001
+644
 -1
 -1
-12.52
+12.2
 1
 10
 1
@@ -801,7 +801,7 @@ MONITOR
 1048
 98
 1181
-144
+143
 % age-0-29
 %age_0_29
 2
@@ -812,7 +812,7 @@ MONITOR
 1048
 150
 1183
-196
+195
 % age-30-49
 %age_30_49
 2
@@ -823,7 +823,7 @@ MONITOR
 1048
 202
 1184
-248
+247
 % age-50-64
 %age_50_64
 2
@@ -834,7 +834,7 @@ MONITOR
 1048
 252
 1184
-298
+297
 % age-65+
 %age_65+
 2
@@ -845,7 +845,7 @@ SLIDER
 15
 555
 220
-590
+588
 hospital-beds
 hospital-beds
 0
@@ -875,7 +875,7 @@ MONITOR
 159
 603
 285
-649
+648
 Carrying The virus
 %carry
 2
@@ -886,7 +886,7 @@ MONITOR
 16
 603
 151
-649
+648
 Healthy
 %healthy
 2
@@ -905,12 +905,12 @@ Need Intencive care
 11
 
 TEXTBOX
-1045
-55
-1313
-105
+1053
+57
+1177
+86
 Age Category
-5
+15
 105.0
 1
 
@@ -918,19 +918,19 @@ CHOOSER
 238
 545
 374
-591
+590
 quarantine
 quarantine
 "Quarantine" "No Quarantine"
 1
 
 TEXTBOX
-1226
-59
-1316
-117
+1222
+55
+1312
+113
 Healthy
-5
+15
 105.0
 1
 
@@ -938,7 +938,7 @@ MONITOR
 1215
 96
 1343
-142
+141
 00 to 29
 %H_29
 2
@@ -949,7 +949,7 @@ MONITOR
 1216
 149
 1344
-195
+194
 30 to 49
 %H_49
 2
@@ -960,7 +960,7 @@ MONITOR
 1218
 202
 1344
-248
+247
 50 to 64
 %H_64
 2
@@ -971,7 +971,7 @@ MONITOR
 1219
 253
 1344
-299
+298
 65 to +
 %H_65
 2
@@ -979,12 +979,12 @@ MONITOR
 11
 
 TEXTBOX
-98
-343
-344
-372
+128
+348
+261
+378
 Age Controllers
-5
+15
 105.0
 1
 
@@ -997,7 +997,7 @@ Vaccinated-pop
 Vaccinated-pop
 0
 Totalpop - Infected
-22.0
+3.0
 1
 1
 NIL
@@ -1047,7 +1047,7 @@ MONITOR
 295
 603
 383
-649
+648
 Deaths
 count humans with [dead? = true]
 2
@@ -1058,7 +1058,7 @@ MONITOR
 1308
 610
 1460
-656
+655
 Vaccinated
 %Vacc
 2
@@ -1069,7 +1069,7 @@ MONITOR
 1045
 612
 1134
-658
+657
 Masks
 %sick
 17
@@ -1092,7 +1092,7 @@ true
 true
 "" ""
 PENS
-"Need IC" 1.0 0 -8630108 true "" "plot count humans with [need-hospital? = true]"
+"Need IC" 1.0 0 -13840069 true "" "plot count humans with [need-hospital? = true]"
 "Recovered" 1.0 0 -7500403 true "" "plot count humans with [color = gray]"
 "Died" 1.0 0 -2674135 true "" "plot count humans with [dead? = true]"
 
@@ -1100,7 +1100,7 @@ MONITOR
 1142
 610
 1300
-656
+655
 Hospital Empty Beds
 %Hospital-Empty-beds
 17
