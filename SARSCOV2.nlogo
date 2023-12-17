@@ -173,6 +173,9 @@ end
 
 ;;; >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> The go method <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 to go
+   if (count humans with [color = green or color = gray] + count humans with [dead? = true]) >= Totalpop [
+    stop
+  ]
  ask humans [
     move
     spreadInfection
@@ -194,7 +197,7 @@ to move
   ask humans with [move? = true][
     rt random 360
     lt random 360
-    fd 0.1
+    fd 0.09
   ]
 end
 
@@ -708,7 +711,7 @@ Infected
 Infected
 0
 Totalpop
-20.0
+37.0
 1
 1
 NIL
@@ -914,7 +917,7 @@ CHOOSER
 quarantine
 quarantine
 "Quarantine" "No Quarantine"
-0
+1
 
 TEXTBOX
 1226
@@ -1020,7 +1023,7 @@ TEXTBOX
 15
 432
 43
------------- Controll Panel ------------
+------------ Controll Panel ----------
 22
 105.0
 1
