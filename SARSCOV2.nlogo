@@ -194,7 +194,7 @@ to move
   ask humans with [move? = true][
     rt random 360
     lt random 360
-    fd 0.5
+    fd 0.1
   ]
 end
 
@@ -614,13 +614,13 @@ to died
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
-377
-34
-954
-612
+415
+56
+1017
+659
 -1
 -1
-17.242424242424242
+12.52
 1
 10
 1
@@ -641,20 +641,20 @@ ticks
 30.0
 
 TEXTBOX
-505
-10
-893
-35
+499
+15
+888
+48
 SARS-Cov2 Outbreak simulation
-23
-15.0
+24
+125.0
 1
 
 BUTTON
-2
-48
-65
-81
+19
+49
+177
+111
 setup
 setup
 NIL
@@ -668,10 +668,10 @@ NIL
 1
 
 BUTTON
-71
-48
-134
-81
+196
+50
+385
+109
 go
 go
 T
@@ -685,10 +685,10 @@ NIL
 1
 
 SLIDER
-0
-84
-364
-117
+19
+128
+383
+161
 Totalpop
 Totalpop
 0
@@ -700,25 +700,25 @@ NIL
 HORIZONTAL
 
 SLIDER
-0
-123
-364
-156
+19
+173
+383
+206
 Infected
 Infected
 0
 Totalpop
-50.0
+20.0
 1
 1
 NIL
 HORIZONTAL
 
 SLIDER
-0
-162
-363
-195
+19
+216
+382
+249
 Infection-Proba
 Infection-Proba
 0
@@ -730,10 +730,10 @@ Infection-Proba
 HORIZONTAL
 
 SLIDER
-0
-303
-361
-336
+15
+378
+376
+411
 age-0-29
 age-0-29
 0
@@ -745,10 +745,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-0
-342
-360
-375
+16
+420
+376
+453
 age-30-49
 age-30-49
 0
@@ -760,10 +760,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-0
-382
-360
-415
+15
+463
+375
+496
 age-50-64
 age-50-64
 0
@@ -775,10 +775,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-0
-421
-360
-454
+15
+506
+375
+539
 age-65+
 age-65+
 0
@@ -790,10 +790,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-955
-83
-1043
-128
+1048
+98
+1181
+144
 % age-0-29
 %age_0_29
 2
@@ -801,10 +801,10 @@ MONITOR
 11
 
 MONITOR
-955
-133
-1044
-178
+1048
+150
+1183
+196
 % age-30-49
 %age_30_49
 2
@@ -812,10 +812,10 @@ MONITOR
 11
 
 MONITOR
-955
-183
-1044
-228
+1048
+202
+1184
+248
 % age-50-64
 %age_50_64
 2
@@ -823,10 +823,10 @@ MONITOR
 11
 
 MONITOR
-956
-232
-1045
-277
+1048
+252
+1184
+298
 % age-65+
 %age_65+
 2
@@ -834,10 +834,10 @@ MONITOR
 11
 
 SLIDER
-0
-469
-245
-502
+15
+555
+220
+590
 hospital-beds
 hospital-beds
 0
@@ -849,10 +849,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-0
-202
-363
-235
+19
+260
+382
+293
 WareMask
 WareMask
 0
@@ -864,10 +864,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-70
-517
-187
-562
+159
+603
+285
+649
 Carrying The virus
 %carry
 2
@@ -875,10 +875,10 @@ Carrying The virus
 11
 
 MONITOR
-1
-517
-68
-562
+16
+603
+151
+649
 Healthy
 %healthy
 2
@@ -886,10 +886,10 @@ Healthy
 11
 
 MONITOR
-189
-517
-314
-562
+1470
+610
+1595
+655
 Need Intencive care
 %Intencive-care
 2
@@ -897,40 +897,40 @@ Need Intencive care
 11
 
 TEXTBOX
-955
-61
-1046
-95
+1045
+55
+1313
+105
 Age Category
-14
-53.0
+5
+105.0
 1
 
 CHOOSER
-249
-458
-359
-503
+238
+545
+374
+591
 quarantine
 quarantine
 "Quarantine" "No Quarantine"
-1
+0
 
 TEXTBOX
-1061
-61
-1109
-79
+1226
+59
+1316
+117
 Healthy
-14
-53.0
+5
+105.0
 1
 
 MONITOR
-1055
-83
-1117
-128
+1215
+96
+1343
+142
 00 to 29
 %H_29
 2
@@ -938,10 +938,10 @@ MONITOR
 11
 
 MONITOR
-1055
-133
-1117
-178
+1216
+149
+1344
+195
 30 to 49
 %H_49
 2
@@ -949,10 +949,10 @@ MONITOR
 11
 
 MONITOR
-1055
-183
-1117
-228
+1218
+202
+1344
+248
 50 to 64
 %H_64
 2
@@ -960,10 +960,10 @@ MONITOR
 11
 
 MONITOR
-1055
-231
-1117
-276
+1219
+253
+1344
+299
 65 to +
 %H_65
 2
@@ -971,20 +971,20 @@ MONITOR
 11
 
 TEXTBOX
-0
-279
-150
-301
+98
+343
+344
+372
 Age Controllers
-18
-123.0
+5
+105.0
 1
 
 SLIDER
-0
-240
-362
-273
+19
+303
+381
+336
 Vaccinated-pop
 Vaccinated-pop
 0
@@ -996,10 +996,10 @@ NIL
 HORIZONTAL
 
 PLOT
-960
-295
-1488
-611
+1043
+315
+1738
+595
 Population
 Days
 Number Of Humans
@@ -1008,48 +1008,38 @@ Number Of Humans
 0.0
 10.0
 true
-false
+true
 "" ""
 PENS
 "Healthy" 1.0 0 -15040220 true "" "plot count humans with [color = green or color = gray]"
 "Carry" 1.0 0 -1184463 true "" "plot count humans with [color = yellow]"
-"Sick" 1.0 0 -3844592 true "" "plot count humans with [color = orange]"
+"Sick" 1.0 0 -2674135 true "" "plot count humans with [color = orange]"
 
 TEXTBOX
-0
-21
-377
-47
--------------- Controll Panel --------------
+26
+15
+432
+43
+------------ Controll Panel ------------
 22
-0.0
+105.0
 1
 
 TEXTBOX
-953
-22
-1487
-51
---------------------------- Monitors ---------------------------
-22
-0.0
-1
-
-TEXTBOX
-1123
-64
-1138
-275
+1363
+70
+1379
+305
 |\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|
 15
 0.0
 1
 
 MONITOR
-316
-517
-373
-562
+295
+603
+383
+649
 Deaths
 count humans with [dead? = true]
 2
@@ -1057,10 +1047,10 @@ count humans with [dead? = true]
 11
 
 MONITOR
-2
-567
-68
-612
+1308
+610
+1460
+656
 Vaccinated
 %Vacc
 2
@@ -1068,10 +1058,10 @@ Vaccinated
 11
 
 MONITOR
-316
-566
-373
-611
+1045
+612
+1134
+658
 Masks
 %sick
 17
@@ -1079,11 +1069,11 @@ Masks
 11
 
 PLOT
-1135
+1385
 65
-1485
-275
-plot 1
+1735
+303
+hospitalisation
 NIL
 NIL
 0.0
@@ -1091,18 +1081,18 @@ NIL
 0.0
 10.0
 true
-false
+true
 "" ""
 PENS
-"Need IC" 1.0 0 -8053223 true "" "plot count humans with [need-hospital? = true]"
+"Need IC" 1.0 0 -8630108 true "" "plot count humans with [need-hospital? = true]"
 "Recovered" 1.0 0 -7500403 true "" "plot count humans with [color = gray]"
 "Died" 1.0 0 -2674135 true "" "plot count humans with [dead? = true]"
 
 MONITOR
-70
-567
-198
-612
+1142
+610
+1300
+656
 Hospital Empty Beds
 %Hospital-Empty-beds
 17
