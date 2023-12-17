@@ -166,7 +166,7 @@ end
 to setup-vaccinated
   ask n-of Vaccinated-pop humans with [color = green][
     set is-vaccinated? true
-    set shape "person doctor"
+    set shape "persondoctor"
     set color green
   ]
 end
@@ -997,7 +997,7 @@ Vaccinated-pop
 Vaccinated-pop
 0
 Totalpop - Infected
-22.0
+0.0
 1
 1
 NIL
