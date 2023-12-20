@@ -2,17 +2,18 @@ breed [humans human]
 breed [hospitals hospital]
 
 globals [
-  %sick
-  %carry
-  %healthy
-  %carrying
-  %Intencive-care
+  %sick      ;This variable holds the number of sick humans
+  %carry     ;This var holds the number of the humans carrying the virus
+  %healthy   ;This var holds the number of the healthy humans
+  ;%carrying  ;
+  %Intencive-care ; the humans who needs the intensive care
   %Hospital-Empty-beds
-  %recovered ; a boolean variable that shows if a turtle is recovered or not
+  %recovered ; variable that show the number of humans recovered
   %age_0_29
   %age_30_49
   %age_50_64
   %age_65+
+
   ; The percentage of helthy people by age category
   %H_29
   %H_49
@@ -32,8 +33,7 @@ humans-own [
   category-age-30_49?
   category-age-50_64?
   category-age-65+?
-  carry? ; a boolean variable that determins if the turtle is carrying the virus
-  ;infected? ; a boolean variable that shows if a turtle is infected or not
+  carry?   ; a boolean variable that determins if the turtle is carrying the virus
   incubation-period ; the time between the moment on infection and the beginning of symptoms
   infection-time ; when the turtle has been infected (time)
   touched?
@@ -43,7 +43,7 @@ humans-own [
   need-hospital? ; a boolean varable to see if the human needs an intensive care or not (hospital)
   recovered? ;a boolean variable to check if a human has had the virus and he recovred from it
   move? ;used in the Quarantine situation
-  human-home ; this variable will hold the coordnents of the human
+  human-home ; this variable will hold the coordinates of the human
   dead?
   in-hospital?
   befor-quarantine ;the human wait from 2 to 5 days befor he do the quarantine
@@ -74,7 +74,7 @@ to setupHumans
     set color green
     set shape "face happy"
 
-    ;set infected? false
+    ;varibales init
     set touched? false
     set carry? false
     set wareMask? false
@@ -88,7 +88,7 @@ to setupHumans
     set dead? false
 
     set incubation-period random 13 + 2
-    set befor-quarantine random 6 + 2
+    set befor-quarantine random 4 + 2
     set category-age-0_29? false
     set category-age-30_49? false
     set category-age-50_64? false
@@ -128,7 +128,6 @@ to setupHumans
     set carry? true
     set infection-time 0
   ]
-
 end
 
 
@@ -167,6 +166,7 @@ to setup-vaccinated
   ask n-of Vaccinated-pop humans with [color = green][
     set is-vaccinated? true
     set shape "person doctor"
+    set size 1.5
     set color green
   ]
 end
@@ -232,7 +232,7 @@ to spreadInfection
       ;; If the human is vaccinated (1.5% probability of infection)
       if any? humans in-radius 1 with [color = green and wareMask? = false and is-vaccinated? = true] [
         if random-float 100 <= 1.5 [
-          ask one-of humans in-radius 1 with [color = green and wareMask? = false and is-vaccinated? = false] [
+          ask one-of humans in-radius 1 with [color = green and wareMask? = false and is-vaccinated? = true] [
             set infection-time ticks
             set touched? true
             set carry? true
@@ -370,7 +370,7 @@ to recover
   ]
 
   ask humans with [(color = yellow or color = orange or color = blue) and need-hospital? = false and category-age-30_49? = true][
-    if ticks - symptoms-time > 15 [
+    if ticks - symptoms-time > 15[
       if random 100 < 94 [
         set color gray
         set size 0.8
@@ -418,11 +418,11 @@ end
 to do-quarantine
   if quarantine = "Quarantine" [
     ask humans with [symptoms? = true and need-hospital? = false][
-      ;if ticks = (symptoms-time + befor-quarantine)[
+      if ticks = (symptoms-time + befor-quarantine)[
         set color blue
         set move? false
         set shape "house"
-      ;]
+      ]
     ]
   ]
 end
@@ -527,7 +527,6 @@ to died
     set shape "x"
     set dead? true
     set move? false
-    show "hola"
   ]
 
   ;; The people who didn't recover
@@ -590,7 +589,6 @@ to died
     [
       set color gray
       set recovered? true
-      ;set infected? false
       set carry? false
       set symptoms? false
       set shape "face happy"
@@ -622,13 +620,13 @@ to died
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
-415
-56
-1001
-644
+398
+50
+993
+646
 -1
 -1
-12.2
+12.364
 1
 10
 1
@@ -701,7 +699,7 @@ Totalpop
 Totalpop
 0
 400
-90.0
+81.0
 1
 1
 NIL
@@ -716,7 +714,7 @@ Infected
 Infected
 0
 Totalpop
-37.0
+15.0
 1
 1
 NIL
@@ -746,7 +744,7 @@ age-0-29
 age-0-29
 0
 Totalpop - age-30-49 - age-50-64 - age-65+
-10.0
+14.0
 1
 1
 NIL
@@ -761,7 +759,7 @@ age-30-49
 age-30-49
 0
 Totalpop - age-0-29 - age-50-64 - age-65+
-26.0
+11.0
 1
 1
 NIL
@@ -776,7 +774,7 @@ age-50-64
 age-50-64
 0
 Totalpop - age-0-29 - age-30-49 - age-65+
-24.0
+11.0
 1
 1
 NIL
@@ -791,17 +789,17 @@ age-65+
 age-65+
 0
 Totalpop - age-30-49 - age-50-64 - age-0-29
-30.0
+45.0
 1
 1
 NIL
 HORIZONTAL
 
 MONITOR
-1048
-98
-1181
-143
+1009
+88
+1142
+133
 % age-0-29
 %age_0_29
 2
@@ -809,10 +807,10 @@ MONITOR
 11
 
 MONITOR
-1048
-150
-1183
-195
+1009
+139
+1144
+184
 % age-30-49
 %age_30_49
 2
@@ -820,10 +818,10 @@ MONITOR
 11
 
 MONITOR
-1048
-202
-1184
-247
+1009
+192
+1145
+237
 % age-50-64
 %age_50_64
 2
@@ -831,10 +829,10 @@ MONITOR
 11
 
 MONITOR
-1048
-252
-1184
-297
+1009
+242
+1145
+287
 % age-65+
 %age_65+
 2
@@ -850,7 +848,7 @@ hospital-beds
 hospital-beds
 0
 Totalpop
-5.0
+10.0
 1
 1
 NIL
@@ -894,23 +892,23 @@ Healthy
 11
 
 MONITOR
-1470
-610
-1595
-655
-Need Intencive care
+1432
+582
+1577
+628
+% Need Intencive care
 %Intencive-care
 2
 1
 11
 
 TEXTBOX
-1053
-57
-1177
-86
+1029
+53
+1155
+81
 Age Category
-15
+14
 105.0
 1
 
@@ -922,23 +920,23 @@ CHOOSER
 quarantine
 quarantine
 "Quarantine" "No Quarantine"
-1
+0
 
 TEXTBOX
-1222
-55
-1312
-113
+1202
+53
+1292
+89
 Healthy
 15
 105.0
 1
 
 MONITOR
-1215
-96
-1343
-141
+1175
+86
+1303
+131
 00 to 29
 %H_29
 2
@@ -946,10 +944,10 @@ MONITOR
 11
 
 MONITOR
-1216
-149
-1344
-194
+1178
+139
+1306
+184
 30 to 49
 %H_49
 2
@@ -957,10 +955,10 @@ MONITOR
 11
 
 MONITOR
-1218
-202
-1344
-247
+1179
+192
+1305
+237
 50 to 64
 %H_64
 2
@@ -968,10 +966,10 @@ MONITOR
 11
 
 MONITOR
-1219
-253
-1344
-298
+1180
+243
+1305
+288
 65 to +
 %H_65
 2
@@ -997,17 +995,17 @@ Vaccinated-pop
 Vaccinated-pop
 0
 Totalpop - Infected
-3.0
+0.0
 1
 1
 NIL
 HORIZONTAL
 
 PLOT
-1043
-315
-1738
-595
+1005
+299
+1754
+579
 Population
 Days
 Number Of Humans
@@ -1034,10 +1032,10 @@ TEXTBOX
 1
 
 TEXTBOX
-1363
-70
-1379
-305
+1325
+59
+1341
+294
 |\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|
 15
 0.0
@@ -1055,10 +1053,10 @@ count humans with [dead? = true]
 11
 
 MONITOR
-1308
-610
-1460
-655
+1270
+582
+1422
+627
 Vaccinated
 %Vacc
 2
@@ -1066,10 +1064,10 @@ Vaccinated
 11
 
 MONITOR
-1045
-612
-1134
-657
+1008
+585
+1097
+630
 Masks
 %sick
 17
@@ -1077,10 +1075,10 @@ Masks
 11
 
 PLOT
-1385
-65
-1735
-303
+1348
+49
+1748
+288
 hospitalisation
 Days
 N° Human
@@ -1092,15 +1090,15 @@ true
 true
 "" ""
 PENS
-"Need IC" 1.0 0 -13840069 true "" "plot count humans with [need-hospital? = true]"
+"Need IC" 1.0 0 -13840069 true "" "plot (%Intencive-care * 100) / Totalpop"
 "Recovered" 1.0 0 -7500403 true "" "plot count humans with [color = gray]"
 "Died" 1.0 0 -2674135 true "" "plot count humans with [dead? = true]"
 
 MONITOR
-1142
-610
-1300
-655
+1105
+582
+1263
+627
 Hospital Empty Beds
 %Hospital-Empty-beds
 17
