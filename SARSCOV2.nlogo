@@ -461,7 +461,7 @@ to reInfection
       ; Spread infection between sick human and a healthy human without mask (he is gonna get sick for the first time)
       if any? humans in-radius 1 with [color = gray and wareMask? = false][
         ;; 33% of humans with previous infection can get infected for the secound time
-       if random 100 < 33 [
+       if random 100 < 1.5 [
           ask one-of humans in-radius 1 with [color = gray] [
             set infection-time ticks
             set touched? true
@@ -473,7 +473,7 @@ to reInfection
       ; Spread infection between sick human and a healthy human with mask
       if any? humans in-radius 1 with [color = green and wareMask? = true] [
         if random-float 100 > 95 [
-          if random 100 < 33 [
+          if random 100 < 1.5 [
             ask one-of humans in-radius 1 with [color = green] [
               set infection-time ticks
               set touched? true
@@ -493,7 +493,7 @@ to reInfection
       if random 100 <= Infection-Proba [
         ; Spread infection between sick human and a healthy human without mask
         if any? humans in-radius 1 with [color = gray and wareMask? = false][
-          if random 100 < 33 [
+          if random 100 < 1.5 [
             ask one-of humans in-radius 1 with [color = gray] [
               set infection-time ticks
               set touched? true
@@ -505,7 +505,7 @@ to reInfection
         ; Spread infection between sick human and a healthy human with mask
         if any? humans in-radius 1 with [color = gray and wareMask? = true] [
           if random-float 100 > 95 [
-            if random 100 < 33 [
+            if random 100 < 1.5 [
               ask one-of humans in-radius 1 with [color = gray] [
                 set infection-time ticks
                 set touched? true
@@ -622,11 +622,11 @@ end
 GRAPHICS-WINDOW
 398
 50
-993
-646
+990
+643
 -1
 -1
-12.364
+12.303030303030303
 1
 10
 1
@@ -676,8 +676,8 @@ NIL
 BUTTON
 196
 50
-385
-109
+386
+113
 go
 go
 T
@@ -892,10 +892,10 @@ Healthy
 11
 
 MONITOR
-1432
-582
-1577
-628
+1532
+598
+1757
+643
 % Need Intencive care
 %Intencive-care
 2
@@ -903,12 +903,12 @@ MONITOR
 11
 
 TEXTBOX
-1029
+1015
 53
-1155
-81
+1408
+115
 Age Category
-14
+15
 105.0
 1
 
@@ -923,20 +923,20 @@ quarantine
 0
 
 TEXTBOX
-1202
-53
-1292
-89
+1189
+55
+1279
+91
 Healthy
 15
 105.0
 1
 
 MONITOR
-1175
-86
-1303
-131
+1162
+88
+1290
+133
 00 to 29
 %H_29
 2
@@ -944,10 +944,10 @@ MONITOR
 11
 
 MONITOR
-1178
-139
-1306
-184
+1162
+140
+1290
+185
 30 to 49
 %H_49
 2
@@ -955,10 +955,10 @@ MONITOR
 11
 
 MONITOR
-1179
-192
-1305
-237
+1162
+195
+1288
+240
 50 to 64
 %H_64
 2
@@ -966,10 +966,10 @@ MONITOR
 11
 
 MONITOR
-1180
-243
-1305
-288
+1162
+246
+1287
+291
 65 to +
 %H_65
 2
@@ -1004,8 +1004,8 @@ HORIZONTAL
 PLOT
 1005
 299
-1754
-579
+1755
+592
 Population
 Days
 Number Of Humans
@@ -1031,16 +1031,6 @@ TEXTBOX
 105.0
 1
 
-TEXTBOX
-1325
-59
-1341
-294
-|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|
-15
-0.0
-1
-
 MONITOR
 295
 603
@@ -1053,10 +1043,10 @@ count humans with [dead? = true]
 11
 
 MONITOR
-1270
-582
-1422
-627
+1316
+598
+1525
+643
 Vaccinated
 %Vacc
 2
@@ -1064,10 +1054,10 @@ Vaccinated
 11
 
 MONITOR
-1008
-585
-1097
-630
+1006
+598
+1142
+643
 Masks
 %sick
 17
@@ -1075,10 +1065,10 @@ Masks
 11
 
 PLOT
-1348
-49
-1748
-288
+1302
+48
+1755
+293
 hospitalisation
 Days
 N° Human
@@ -1095,10 +1085,10 @@ PENS
 "Died" 1.0 0 -2674135 true "" "plot count humans with [dead? = true]"
 
 MONITOR
-1105
-582
-1263
-627
+1152
+598
+1310
+643
 Hospital Empty Beds
 %Hospital-Empty-beds
 17
